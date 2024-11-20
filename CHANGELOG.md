@@ -3,8 +3,54 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.15.3 / 5.70.3] - 2024-11-??
 
-## [1.15.1 / 5.70.1] - 2024-10-
+### Added
+- improved ini section editor, it now supports search Ctrl+F
+
+### Fixed
+
+
+
+
+## [1.15.2 / 5.70.2] - 2024-11-18
+
+### Added
+- added "NetworkAdapterMAC=0,AA-BB-CC-DD-EE-FF" to set MAC address for each box (thanks Yeyixiao)
+- added "DiskSerialNumber=DeviceName,1234-ABCD" to set disk serial number for individual box (thanks Yeyixiao)
+- added the ability to hide certificates in the edit box in the global settings (idea by Yeyixiao)
+- added opening a program in several sandboxes at once [#4231](https://github.com/sandboxie-plus/Sandboxie/issues/4231)
+- added "Description" field inside the sandbox settings [#4243](https://github.com/sandboxie-plus/Sandboxie/issues/4243)
+- added "NotifyMsiInstaller=y" enabled by default to display message SBIE2194 when an MSI installer is run in a box without the recommended exemptions [#4330](https://github.com/sandboxie-plus/Sandboxie/issues/4330)
+  - SBIE2194: MSI installer requires 'MsiInstallerExemptions=y' option to be set in the ini to be able to work correctly, however this option weakens the isolation.
+- added option to hide installed programs [#4139](https://github.com/sandboxie-plus/Sandboxie/issues/4139)
+- added hide tray icon [#4075](https://github.com/sandboxie-plus/Sandboxie/issues/4075)
+- added improved trace logging filtering [#4338](https://github.com/sandboxie-plus/Sandboxie/issues/4338)
+- added EventLog monitoring for SbieMessages [#4113](https://github.com/sandboxie-plus/Sandboxie/issues/4113)
+  - add 'LogMessageEvents=y' to the global settings to log all Sbie events to the system event log
+
+### Changed
+- validated compatibility with Windows build 27749 and updated DynData
+- when running via drag and drop, now the app's parent folder is used as working directory [#4073](https://github.com/sandboxie-plus/Sandboxie/issues/4073)
+
+### Fixed
+- fixed Sign the .tmp file that gets dropped when installing or updating Sandboxie Plus [#2643](https://github.com/sandboxie-plus/Sandboxie/issues/2643) [#4343](https://github.com/sandboxie-plus/Sandboxie/issues/4343)
+- fixed issue with DLL unloading
+- fixed Files Resource Access - Browse for Folder - allows access to excluded folders [#4007](https://github.com/sandboxie-plus/Sandboxie/issues/4007)
+- fixed "ForceDisableAdminOnly" is weird [#4233](https://github.com/sandboxie-plus/Sandboxie/issues/4233)
+- fixed deadlock on no op condition when renaming file or folder [#4304](https://github.com/sandboxie-plus/Sandboxie/issues/4304)
+- fixed Could not move file or folder [#4329](https://github.com/sandboxie-plus/Sandboxie/issues/4329)
+- fixed Sandboxie causing Firefox Nightly crashes [#4183](https://github.com/sandboxie-plus/Sandboxie/issues/4183)
+- "Run Sandboxed" from the quick-previewer should have only one option [#4339](https://github.com/sandboxie-plus/Sandboxie/issues/4339)
+
+
+
+## [1.15.1 / 5.70.1] - 2024-10-29
+
+### Changed
+- validated compatibility with Windows build 27729 and updated DynData
+- updated Templates.ini to grant access to the Multimedia Class Scheduler Service [#4312](https://github.com/sandboxie-plus/Sandboxie/pull/4312) (thanks offhub)
+- updated Inno Setup to version 6.3.3 [#4020](https://github.com/sandboxie-plus/Sandboxie/issues/4020)
 
 ### Fixed
 - fixed Sandboxie crypto fails to start in red boxes
@@ -17,7 +63,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - added new user proxy mechanism to enable user specific operations
 - added support for EFS using the user proxy [#1980](https://github.com/sandboxie-plus/Sandboxie/issues/1980)
-  - to enable add 'EnableEFS=y' to the sandbox config
+  - to enable it, add 'EnableEFS=y' to the sandbox configuration (requires an advanced supporter certificate)
 - added breakout document functionality [#2741](https://github.com/sandboxie-plus/Sandboxie/issues/2741)
   - use a syntax like this 'BreakoutDocument=C:\path\*.txt' to specify path and extension
   - Security Warning: do not use paths terminated with a wildcard like 'BreakoutDocument=C:\path\*' as they will allow for execution of malicious scripts outside the sandbox!
@@ -27,7 +73,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - improved SandboxieCrypto startup
-- improved Sandboxed RPCSS startup
+- improved sandboxed RPCSS startup
+- changed Qt 5 version to Qt 5.15.15 with OpenSSL 3.3.2 [#4223](https://github.com/sandboxie-plus/Sandboxie/pull/4223) (thanks offhub)
 - set tab orders and buddies of UI controls [#4300](https://github.com/sandboxie-plus/Sandboxie/pull/4300) (thanks gexgd0419)
 
 ### Fixed
@@ -166,7 +213,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.14.2 / 5.69.2] - 2024-06-19
 
 ### Added
-- added SbieIni option to modify password-protected configs [#3903](https://github.com/sandboxie-plus/Sandboxie/issues/3903)
+- added SbieIni option to modify password-protected configurations [#3903](https://github.com/sandboxie-plus/Sandboxie/issues/3903)
   - Usage: set|append|insert|delete [/passwd:********] <section> <setting> <value>
   - Note: use /passwd without the password to have SbieIni prompt for the password on the console, this hides the password from view and prevents capture with the command line
 - added checkbox for "PromptForInternetAccess" option to the New Box Wizard

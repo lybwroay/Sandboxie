@@ -33,6 +33,7 @@ UsedUserAreasWarning=no
 VersionInfoCopyright=Copyright (C) 2020-2024 by David Xanatos (xanasoft.com)
 VersionInfoVersion={#MyAppVersion}
 SetupIconFile=SandManInstall.ico
+SignTool=sha256
 
 ; Handled in code section as always want DirPage for portable mode.
 DisableDirPage=no
@@ -136,6 +137,7 @@ Filename: "{app}\Start.exe"; Parameters: "open_agent:sandman.exe"; Description: 
 
 [UninstallDelete]
 Type: dirifempty; Name: "{app}"
+Type: files; Name: "{localappdata}\{#MyAppName}\addons.json"
 Type: dirifempty; Name: "{localappdata}\{#MyAppName}"
 
 

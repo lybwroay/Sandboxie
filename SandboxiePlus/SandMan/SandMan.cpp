@@ -1335,7 +1335,7 @@ void CSandMan::closeEvent(QCloseEvent *e)
 	if (!m_bExit)// && !theAPI->IsConnected())
 	{
 		QString OnClose = theConf->GetString("Options/OnClose", "ToTray");
-		if (m_pTrayIcon->isVisible() && OnClose.compare("ToTray", Qt::CaseInsensitive) == 0)
+		if ((m_pTrayIcon->isVisible() && OnClose.compare("ToTray", Qt::CaseInsensitive) == 0) || (OnClose.compare("Hide", Qt::CaseInsensitive) == 0))
 		{
 			StoreState();
 			hide();
@@ -1810,7 +1810,9 @@ void CSandMan::dropEvent(QDropEvent* e)
 	if (Boxes.count() == 1)
 		BoxName = Boxes.first()->GetName();
 
-	QTimer::singleShot(0, this, [Commands, BoxName, this]() { RunSandboxed(Commands, BoxName); });
+	QString WrkDir = QFileInfo(Commands.first()).absoluteDir().path().replace("/","\\");
+
+	QTimer::singleShot(0, this, [Commands, BoxName, WrkDir, this]() { RunSandboxed(Commands, BoxName, WrkDir); });
 }
 
 void CSandMan::timerEvent(QTimerEvent* pEvent)
